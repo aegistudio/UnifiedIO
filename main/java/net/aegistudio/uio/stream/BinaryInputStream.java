@@ -25,7 +25,7 @@ public class BinaryInputStream extends InputStream {
 	
 	public String readConstLengthString(int length) throws IOException {
 		byte[] string = new byte[length];
-		CorruptException.check(this.read(string), length);
+		CorruptException.equal(this.read(string), length);
 		return new String(string, charset);
 	}
 	

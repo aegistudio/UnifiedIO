@@ -54,4 +54,12 @@ public class Container<T> implements Wrapper<T> {
 	public static Container<Long> long1m() {
 		return new Container<>(-1l);
 	}
+	
+	public static Container<String> string0() {
+		return new Container<>("");
+	}
+	
+	public static Container<Float> float0() {
+		return new Container<>(0f);
+	}
 }

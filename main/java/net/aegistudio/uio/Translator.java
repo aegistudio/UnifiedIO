@@ -78,6 +78,26 @@ public interface Translator {
 	}
 	
 	/**
+	 * For primitive types, reverse the internal call order.
+	 */
+	public interface ArrayTranslationReverse<T> {
+		public void translate(Translator translator, T t) 
+				throws IOException, CorruptException;
+	}
+	
+	public static <T> ArrayTranslation<T> reverse(ArrayTranslationReverse<T> translation) {
+		return (t, translator) -> translation.translate(translator, t);
+	}
+	
+	public interface ArrayTranslationSqueech<T> {
+		public void translate(T t) throws IOException, CorruptException;
+	}
+	
+	public static <T> ArrayTranslation<T> squeech(ArrayTranslationSqueech<T> translation) {
+		return (t, translator) -> translation.translate(t);
+	}
+	
+	/**
 	 * <p>Read or write certain amount of element into the array.</p>
 	 * 
 	 * <p>The translations will be executed one by one. As the

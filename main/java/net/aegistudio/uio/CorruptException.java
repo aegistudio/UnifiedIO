@@ -18,6 +18,7 @@ public class CorruptException extends IOException {
 	protected final Object expected, actual;
 	
 	public <T> CorruptException(T expected, T actual) {
+		super("Expected " + expected + ", get " + actual + " however.");
 		this.expected = expected;
 		this.actual = actual;
 	}
@@ -30,7 +31,11 @@ public class CorruptException extends IOException {
 		return this.actual;
 	}
 	
+	public static void equal(long left, long right) throws CorruptException {
+		if(left != right) throw new CorruptException(left, right);
+	}
+	
 	public static <T> void check(T left, T right) throws CorruptException {
-		if(left.equals(right)) throw new CorruptException(left, right);
+		if(!left.equals(right)) throw new CorruptException(left, right);
 	}
 }
