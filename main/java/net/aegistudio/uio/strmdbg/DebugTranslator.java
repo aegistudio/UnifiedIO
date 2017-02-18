@@ -1,6 +1,7 @@
 package net.aegistudio.uio.strmdbg;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -94,16 +95,23 @@ public class DebugTranslator implements Translator {
 		wrapped.end();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void array(int length, List<T> list, Supplier<T> factory, 
-			@SuppressWarnings("unchecked") ArrayTranslation<T>... translation)
+			ArrayTranslation<T>... translation)
 			throws IOException, CorruptException {
-		wrapped.array(length, list, factory, translation);
+		wrapped.array(length, list, factory, Arrays.stream(translation)
+				.map(source -> {
+					Translator wrap = DebugTranslator.this;
+					ArrayTranslation<T> translate = 
+							(t, tr) -> source.translate(t, wrap);
+					return translate;
+				}).toArray(ArrayTranslation[]::new));
 	}
 
 	@Override
 	public void constString(String field) throws CorruptException, IOException {
-		wrapped.constString(field);
+		constDebug("cstr", () -> wrapped.constString(field));
 	}
 
 	@Override
