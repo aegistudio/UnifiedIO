@@ -140,4 +140,24 @@ public class InputTranslator implements Translator {
 			
 		}
 	}
+
+	@Override
+	public void signed64(Wrapper<Long> wrapper) throws IOException {
+		wrapper.set(binaryInputStream.readSigned64());
+	}
+
+	@Override
+	public void constLong(long constant) throws IOException, CorruptException {
+		CorruptException.check(constant, binaryInputStream.readSigned64());
+	}
+
+	@Override
+	public void double64(Wrapper<Double> wrapper) throws IOException {
+		wrapper.set(binaryInputStream.readDouble64());
+	}
+
+	@Override
+	public void constDouble(double value) throws IOException {
+		CorruptException.check(value, binaryInputStream.readDouble64());
+	}
 }

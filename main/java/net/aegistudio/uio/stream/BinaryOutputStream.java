@@ -40,6 +40,10 @@ public class BinaryOutputStream extends OutputStream {
 		write32(Float.floatToRawIntBits(value));
 	}
 	
+	public void writeDouble64(double value) throws IOException {
+		write64(Double.doubleToRawLongBits(value));
+	}
+	
 	public void write64(long value) throws IOException {
 		writeBytes(value, 8);
 	}

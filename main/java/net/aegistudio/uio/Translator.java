@@ -37,9 +37,17 @@ public interface Translator {
 	
 	public void constInteger(int constant) throws IOException, CorruptException;
 	
+	public void signed64(Wrapper<Long> wrapper) throws IOException;
+	
+	public void constLong(long constant) throws IOException, CorruptException;
+	
 	public void float32(Wrapper<Float> wrapper) throws IOException;
 	
 	public void constFloat(float value) throws IOException;
+	
+	public void double64(Wrapper<Double> wrapper) throws IOException;
+	
+	public void constDouble(double value) throws IOException;
 	
 	public void string16(Wrapper<String> wrapper) throws IOException;
 	

@@ -132,4 +132,24 @@ public class OutputTranslator implements Translator {
 	public void fallback(Fallbackable fallback) throws IOException {
 		fallback.write(binaryOutputStream);
 	}
+
+	@Override
+	public void signed64(Wrapper<Long> wrapper) throws IOException {
+		binaryOutputStream.write64(wrapper.get());
+	}
+
+	@Override
+	public void constLong(long constant) throws IOException, CorruptException {
+		binaryOutputStream.write64(constant);
+	}
+
+	@Override
+	public void double64(Wrapper<Double> wrapper) throws IOException {
+		binaryOutputStream.writeDouble64(wrapper.get());
+	}
+
+	@Override
+	public void constDouble(double value) throws IOException {
+		binaryOutputStream.writeDouble64(value);
+	}
 }

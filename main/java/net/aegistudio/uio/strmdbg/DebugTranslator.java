@@ -138,4 +138,24 @@ public class DebugTranslator implements Translator {
 	public void fallback(Fallbackable fallback) throws IOException {
 		debug("fallback", () -> wrapped.fallback(fallback));
 	}
+
+	@Override
+	public void signed64(Wrapper<Long> wrapper) throws IOException {
+		debug("s64", () -> wrapped.signed64(wrapper));
+	}
+
+	@Override
+	public void constLong(long constant) throws IOException, CorruptException {
+		constDebug("cs64", () -> wrapped.constLong(constant));
+	}
+
+	@Override
+	public void double64(Wrapper<Double> wrapper) throws IOException {
+		debug("d64", () -> wrapped.double64(wrapper));
+	}
+
+	@Override
+	public void constDouble(double value) throws IOException {
+		constDebug("cd64", () -> wrapped.constDouble(value));
+	}
 }

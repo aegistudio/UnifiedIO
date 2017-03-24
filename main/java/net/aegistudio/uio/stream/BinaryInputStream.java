@@ -59,6 +59,14 @@ public class BinaryInputStream extends InputStream {
 		return Float.intBitsToFloat(this.readSigned32());
 	}
 	
+	public long readSigned64() throws IOException {
+		return (long) readBytes(8, false);
+	}
+	
+	public double readDouble64() throws IOException {
+		return Double.longBitsToDouble(this.readSigned64());
+	}
+	
 	/**
 	 * Read certain bytes of number into the field buffer,
 	 * and then combine them together into an actual number.
