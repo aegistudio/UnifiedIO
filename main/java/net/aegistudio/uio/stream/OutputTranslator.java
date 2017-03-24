@@ -19,7 +19,13 @@ public class OutputTranslator implements Translator {
 	private final BinaryOutputStream binaryOutputStream;
 	
 	public OutputTranslator(OutputStream wrapperOutputStream) {
-		this.binaryOutputStream = new BinaryOutputStream(wrapperOutputStream);
+		this(wrapperOutputStream, false);
+	}
+	
+	public OutputTranslator(OutputStream wrapperOutputStream, boolean bigEndian) {
+		this.binaryOutputStream = bigEndian?
+				new BigEndianOutputStream(wrapperOutputStream):
+				new BinaryOutputStream(wrapperOutputStream);
 	}
 	
 	@Override

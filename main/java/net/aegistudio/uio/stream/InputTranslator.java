@@ -20,7 +20,13 @@ public class InputTranslator implements Translator {
 	protected final BinaryInputStream binaryInputStream;
 	
 	public InputTranslator(InputStream inputStream, String charset) {
-		this.binaryInputStream = new BinaryInputStream(inputStream, charset);
+		this(inputStream, charset, false);
+	}
+	
+	public InputTranslator(InputStream inputStream, String charset, boolean bigEndian) {
+		this.binaryInputStream = bigEndian? 
+				new BigEndianInputStream(inputStream, charset):
+				new BinaryInputStream(inputStream, charset);
 	}
 	
 	@Override
